@@ -1,0 +1,20 @@
+---
+
+name: Issue Automation
+
+on:
+  issues:
+    types: [ opened ]
+
+jobs:
+  add-to-project-board:
+    name: Add issue to project board
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add new issues to project board
+        uses: matmar10/add-issues-to-project@master
+        with:
+          # for Github Projects 2.0 need permission "write:org" hence default GITHUB_TOKEN not enough
+          gitub_token: ${{ secrets.ADD_ISSUE_TO_PROJECT_API_TOKEN  }}
+          github_project_title: "Rebuild"
+          github_org: launchgood

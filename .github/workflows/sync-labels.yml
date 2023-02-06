@@ -1,0 +1,23 @@
+---
+
+name: Sync Github labels
+
+on:
+  # allow to be triggered manually
+  workflow_dispatch: {}
+  schedule:
+    # 07:11AM every day
+    - cron: '11 3 * * *'
+    # 07:11PM every day
+    - cron: '11 19 * * *'
+
+jobs:
+  sync-labels:
+    name: Sync labels
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: matmar10/sync-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          repository: launchgood/authorization-service

@@ -1,0 +1,22 @@
+version: '3.8'
+
+# postgresql://competitions:password@localhost:5432/ledger
+services:
+  postgres:
+    container_name: lg4-authorization-postgres
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+  rabbitmq:
+    container_name: lg4-authorization-rabbitmq
+    image: rabbitmq:3.8-management
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RMQ_USER}
+      - RABBITMQ_DEFAULT_PASS=${RMQ_PASSWORD}

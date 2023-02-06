@@ -1,0 +1,25 @@
+---
+
+name: Code Quality
+
+on:
+  pull_request:
+    branches: [ '*' ]
+
+jobs:
+  code-quality:
+    name: Enforce code quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Set up node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16'
+      - name: Install npm packages
+        run: npm install
+      - name: Run ESLint
+        run: npm run lint:test
+      - name: Run Prettier
+        run: npm run format:test

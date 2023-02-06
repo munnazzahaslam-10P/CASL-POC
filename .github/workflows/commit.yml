@@ -1,0 +1,21 @@
+---
+
+name: Conventional Commit
+
+on:
+  pull_request:
+    branches: [ '*' ]
+
+jobs:
+  high-quality-pull-request:
+    name: Enforce high quality conventional commits
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Lint PR commits
+        uses: matmar10/prcolinter@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          rules: '{"body-max-line-length":[0,"always",100],"references-empty":[2,"never"],"type-enum":[2,"always",["build","chore","ci","docs","feat","fix","perf","refactor","revert","style","test","edit"]]}'
+
+
