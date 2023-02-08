@@ -1,12 +1,12 @@
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 export const QUEUE = {
-  CREATE_USER: 'create-user',
-  GET_USER: 'get-user'
+  CREATE_CAMPAIGN: 'create-campaign',
+  UPDATE_CAMPAIGN: 'update-campaign'
 };
 export const ROUTE = {
-  CREATE_USER: 'create-user',
-  GET_USER: 'get-user'
+  CREATE_CAMPAIGN: 'create-campaign',
+  UPDATE_CAMPAIGN: 'update-campaign'
 };
 
 export const AUTHORIZATION_RPC_EXCHANGE_NAME = 'auth-service';

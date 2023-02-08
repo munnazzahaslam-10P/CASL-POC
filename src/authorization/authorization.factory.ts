@@ -1,23 +1,24 @@
 import { InferSubjects, Ability, AbilityBuilder, AbilityClass, ExtractSubjectType } from "@casl/ability";
 import { Injectable } from "@nestjs/common";
-import { Campaign, User } from "../users/entities";
+import { User } from "../users/entities";
 import { Action } from "./enums/action.enum";
 
-export type Subjects = InferSubjects<typeof User | typeof Campaign> | 'all';
+export type Subjects = InferSubjects<typeof User> | 'all';
 
 export type AppAbility = Ability<[Action, Subjects]>;
 
 @Injectable()
 export class AuthorizationFactory {
     defineAbility(user: User) {
+        //defining requirements
         const { can, cannot, build } = new AbilityBuilder(Ability as AbilityClass<AppAbility>);
+
         if (user.isAdmin) {
             can(Action.Manage, 'all');
         } else {
-            can(Action.Create, Campaign);
-            cannot(Action.Create, Campaign);
-            cannot(Action.Update, Campaign, { campaignId: { $ne: user.campaignId } })
-                .because('User can only edit his own campaigns');
+            can(Action.Create, User);
+            can(Action.Update, User, { id: user.id })
+                .because('User can only edit his own profile');
         }
 
         return build({

@@ -1,4 +1,4 @@
-export class CreateCampaignDto {
+export class UserDto {
     id: number;
     isAdmin: boolean;
     campaignId: number;
